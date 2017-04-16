@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="textfileAPI:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="textfileAPI.war">
+      <element id="artifact" artifact-name="textfileAPI:war exploded" />
+    </root>
+  </artifact>
+</component>
