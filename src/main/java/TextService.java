@@ -12,21 +12,26 @@ import java.util.stream.Stream;
 public class TextService {
 
 //I did not understand the task properly because the task says "Such call should return all strings that contains ‘Java'".What is string? line? paragraph ?
-// in example it returns every paragraph that contains 'Java'. Well i wrote few methods that gets every line and paragraph, which contains 'word'.
+// in example it returns every paragraph that contains 'Java'. Well i wrote two methods that gets every line and paragraph, which contains 'word'.
 
 
-    private static String path = "C:\\Users\\fnx_000\\Desktop\\textfileAPI\\src\\main\\webapp\\WEB-INF\\testfile.txt";
+    private static String path = "/Tomcat 8.0/webapps/textfileAPI/WEB-INF/testfile.txt";
 
-    public List<StringBuilder> scanLinesForQuery(String q, Integer length, Integer limit) throws IOException {
+    public ResponseObject scanLinesForQuery(String q, Integer length, Integer limit) throws IOException {
+
         List<StringBuilder> list = new LinkedList<>();
         Files.lines(Paths.get(path)).filter(line -> line.contains(q))
                 .map(string -> string.length() > length ? string.substring(0, length) : string)
                 .forEach(s -> list.add(new StringBuilder(s)));
 
-        return limitTrimmer(list, limit);
+        List<StringBuilder> responseList = limitTrimmer(list, limit);
+        ResponseObject responseObject = new ResponseObject();
+        responseObject.setText(responseList);
+        return responseObject;
     }
 
-    public List<StringBuilder> scanParagraphsForQuery(String q, Integer length, Integer limit) throws IOException {
+    public ResponseObject scanParagraphsForQuery(String q, Integer length, Integer limit) throws IOException {
+
         BufferedReader bf = new BufferedReader(new FileReader(path));
         String line = bf.readLine();
         List<StringBuilder> paragraphs = new LinkedList<>();
@@ -49,10 +54,10 @@ public class TextService {
         paragraphs.stream().filter(paragraph -> new String(paragraph).contains(q))
                 .map(paragraph -> paragraph.length() > length ? paragraph.substring(0, length) : paragraph)
                 .forEach(paragraph -> list.add(new StringBuilder(paragraph)));
-
-
-
-        return limitTrimmer(list,limit);
+        List<StringBuilder> responseList = limitTrimmer(list, limit);
+        ResponseObject responseObject = new ResponseObject();
+        responseObject.setText(responseList);
+        return responseObject;
 
 
     }
