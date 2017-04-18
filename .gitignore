@@ -15,3 +15,8 @@ hs_err_pid*
 
 /.idea/
 /out/
+src/main/resources/
+target/classes/
+target/generated-sources/
+target/surefire/
+target/textfileAPI/WEB-INF/classes/
